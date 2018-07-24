@@ -4,9 +4,14 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
-import iview from 'iview'
+import store from './store'
+import { Spin, Icon, Row, Col } from 'iview'
+
 import '../theme/iview.css'
-Vue.use(iview)
+Vue.component('Spin', Spin)
+Vue.component('Icon', Icon)
+Vue.component('Row', Row)
+Vue.component('Col', Col)
 Vue.use(VueResource)
 Vue.config.productionTip = false
 
@@ -14,6 +19,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

@@ -3,15 +3,17 @@
     <div v-if = "!showLoding">
       <div class="imgFlex">
         <div >
-          <div class= "photographic" ></div>
-          <input id="input" type="file" ref="uploadImg" accept="image/*" capture="camera" @change="getImg($event)" >
+          <div class= "photographic" >
+            <input id="input" type="file" ref="uploadImg" accept="image/*" capture="camera" @change="getImg($event)" >
+          </div>
         </div>
         <div >
           <img class= "logo" src="../images/jhline.png">
         </div>
         <div >
-          <div class= "openPhoto" ></div>
-          <input class="PhotoAlbum" type="file"  accept="image/*">
+          <div class= "openPhoto" >
+            <input class="PhotoAlbum" type="file" name="file"  accept="image/*" @change="getImg($event)">
+          </div>
         </div>
       </div>
       <div>
@@ -19,18 +21,22 @@
       </div>
     </div>
     <Row v-if = "showLoding">
-      <i-col class="demo-spin-col" span="8">
-          <Spin fix>
-              <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
-              <div>图片正在努力识别中</div>
-          </Spin>
-      </i-col>
+      <Col class="demo-spin-col" span="8">
+            <Spin fix>
+                <Icon type="load-c" size=18 class="demo-spin-icon-load"></Icon>
+                <div>图片正在努力识别中</div>
+            </Spin>
+      </Col>
     </Row>
   </div>
 </template>
 
 <script>
 import lrz from 'lrz'
+import {
+  setSession, getSession, saveData, getData
+} from '@/script/util'
+import { mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -41,30 +47,34 @@ export default {
   mounted () {
 
   },
+  computed: {
+    ...mapState(['imgFile'])
+  },
   methods: {
     getImg (event) {
+      var _this = this
       this.showLoding = true
       var showFile = event.target.files[0]
-      var file = this.$refs.uploadImg.files[0]
-      lrz(file).then(function (rst) {
-        console.log(rst.file)
+      this.$store.commit('IMGFILE', showFile) // 默认项目存到vuex
+      console.log(this.imgFile)
+      lrz(showFile).then(function (rst) {
+        var zipFormData = new FormData()
+        zipFormData.append('image', rst.file)
+        _this.$http.post('http://47.94.242.44:8080/ccb/image_detection', zipFormData)
+          .then(
+            (response) => {
+              _this.showLoding = false
+              var imgURL = response.body.imageList
+              setSession('imgData', imgURL)
+              _this.$router.push({path: '/details'})
+            },
+            (error) => {
+              _this.$router.push({path: '/details'})
+              _this.showLoding = false
+              console.log(error)
+            }
+          )
       })
-      console.log(showFile)
-      var zipFormData = new FormData()
-      zipFormData.append('image', file, showFile)
-      // console.log(qs.stringify({ 'image': showFile }))
-      this.$http.post('http://47.94.242.44:8080/ccb/image_detection', zipFormData)
-        .then(
-          (response) => {
-            console.log(response)
-            this.showLoding = false
-            this.$router.push({path: '/details'})
-          },
-          (error) => {
-            this.showLoding = false
-            console.log(error)
-          }
-        )
     }
   }
 }
@@ -73,7 +83,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .imgBox{
-  width:7.5rem;
+  width:100%;
   height:100%;
   padding-top:1rem;
 }
@@ -88,6 +98,7 @@ export default {
   margin:0 auto;
   width:2.3rem;
   height:2.3rem;
+  position: relative;
 }
 .logo{
   width:7rem;
@@ -102,6 +113,7 @@ export default {
   width:2.3rem;
   height:2.3rem;
   margin:0 auto;
+  position: relative;;
 }
 .bottom_img{
   width:100%;
@@ -116,9 +128,9 @@ export default {
   width:2.09rem;
   height:2.09rem;
   position: absolute;
-  left:2.7rem;
+  left:0;
   /*background-color:red;*/
-  top:1rem;
+  top:0;
   opacity:0;
   z-index: 100;
 }
@@ -127,25 +139,26 @@ export default {
   height:2.09rem;
   background:red;
   position: absolute;
-  bottom: 3.5rem;
-  left:2.7rem;
+  top: 0;
+  left:0;
   opacity:0;
   z-index: 100;
 }
 .demo-spin-icon-load{
-    animation: ani-demo-spin 1s linear infinite;
+  animation: ani-demo-spin 1s linear infinite;
+  font-size:24px;
   }
-  @keyframes ani-demo-spin {
-    from { transform: rotate(0deg);}
-    50%  { transform: rotate(180deg);}
-    to   { transform: rotate(360deg);}
-  }
-  .demo-spin-col{
-    width:100%;
-    height: 100%;
-    position: relative;
-    margin-top:3rem;
-    font-size:0.24rem;
-    /*border: 1px solid #eee;*/
-  }
+@keyframes ani-demo-spin {
+  from { transform: rotate(0deg);}
+  50%  { transform: rotate(180deg);}
+  to   { transform: rotate(360deg);}
+}
+.demo-spin-col{
+  width:100%;
+  height: 100%;
+  position: relative;
+  margin-top:3rem;
+  font-size:16px;
+  /*border: 1px solid #eee;*/
+}
 </style>
