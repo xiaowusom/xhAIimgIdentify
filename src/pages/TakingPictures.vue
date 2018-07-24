@@ -34,7 +34,8 @@
 <script>
 import lrz from 'lrz'
 import {
-  setSession, getSession, saveData, getData
+  setSession,
+  // getSession, saveData, getData
 } from '@/script/util'
 import { mapState } from 'vuex'
 export default {
