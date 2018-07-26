@@ -5,7 +5,8 @@ import mutations from './mutations'
 Vue.use(Vuex)
 
 const state = {
-  imgFile: ''
+  imgFile: '',
+  boxRefreshFlag: false
 }
 
 export default new Vuex.Store({

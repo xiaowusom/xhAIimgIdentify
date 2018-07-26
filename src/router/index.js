@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import TakingPictures from '@/pages/TakingPictures'
 import details from '@/pages/details'
 import imgBox from '@/pages/imgBox'
+import noMsg from '@/pages/noMsg'
 
 Vue.use(Router)
 
@@ -22,13 +23,19 @@ export default new Router({
       path: '/details',
       name: 'details',
       // redirect: '/TakingPictures',
-      component: details
+      component: details,
     },
     {
       path: '/imgBox',
       name: 'imgBox',
       // redirect: '/TakingPictures',
-      component: imgBox
-    }
+      component: imgBox,
+    },
+    {
+      path: '/noMsg',
+      name: 'noMsg',
+      // redirect: '/TakingPictures',
+      component: noMsg,
+    },
   ]
 })

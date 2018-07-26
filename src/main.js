@@ -5,17 +5,20 @@ import App from './App'
 import router from './router'
 import VueResource from 'vue-resource'
 import store from './store'
-import { Spin, Icon, Row, Col } from 'iview'
-import $ from 'jquery'
+import { Spin, Icon, Row, Col, Button, Modal } from 'iview'
+// import $ from 'jquery'
 
 import '../theme/iview.css'
 Vue.component('Spin', Spin)
 Vue.component('Icon', Icon)
 Vue.component('Row', Row)
 Vue.component('Col', Col)
+Vue.component('Button', Button)
+Vue.component('Modal', Modal)
+
 Vue.use(VueResource)
 Vue.config.productionTip = false
-Vue.prototype.$ = $;
+// Vue.prototype.$ = $;
 
 /* eslint-disable no-new */
 new Vue({

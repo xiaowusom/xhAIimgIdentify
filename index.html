@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=no, width=device-width, viewport-fit = Contain" name="viewport">
   <link rel="SHORTCUT ICON" href="static/img/favicon.ico">
+  <link href="https://cdn.bootcss.com/jquery-jcrop/0.9.12/css/jquery.Jcrop.min.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/jquery-jcrop/0.9.12/js/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery-jcrop/0.9.12/js/jquery.Jcrop.min.js"></script>
+  <!-- <script src="https://cdn.bootcss.com/jquery-jcrop/0.9.12/js/jquery.color.min.js"></script> -->
+  <!-- <script src="./jcrop.js"></script> -->
+  <!-- <script src="https://cdn.bootcss.com/jquery-jcrop/2.0.4/js/Jcrop.js"></script> -->
   <style type="text/css">
   /* 简单进行默认样式重置 */
+
   * {
     margin: 0;
     padding: 0
@@ -31,6 +39,57 @@
     background-color: #ffffff
   }
   /**/
+  /*有时间可以细化那些框起来后的方形点样式*/
+
+  #demo .jcrop-handle {
+    width: 0.15rem;
+    height: 0.15rem;
+  }
+  /*上中*/
+
+  #demo .ord-n {
+  }
+  /*下中*/
+
+  #demo .ord-s {}
+  /*右中*/
+
+  #demo .ord-e {}
+  /*左中*/
+
+  #demo .ord-w {}
+  /*左上*/
+
+  #demo .ord-nw {
+    width: 0.35rem;
+    height: 0.35rem;
+    margin-right: -0.15rem;
+    margin-top: -0.15rem;
+  }
+  /*右上*/
+
+  #demo .ord-ne {
+    width: 0.35rem;
+    height: 0.35rem;
+    margin-right: -0.15rem;
+    margin-top: -0.15rem;
+  }
+  /*右下*/
+
+  #demo .ord-se {
+    width: 0.35rem;
+    height: 0.35rem;
+    margin-right: -0.15rem;
+    margin-top: -0.15rem;
+  }
+  /*左下*/
+
+  #demo .ord-sw {
+    width: 0.35rem;
+    height: 0.35rem;
+    margin-right: -0.15rem;
+    margin-top: -0.15rem;
+  }
 
   </style>
   <title></title>
@@ -60,6 +119,5 @@
 })(document, window);
 
 </script>
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 
 </html>
