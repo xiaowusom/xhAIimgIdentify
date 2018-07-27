@@ -5,7 +5,7 @@
       <span class="title">通用识别</span>
     </div>
     <div class="top">
-      <span class="title">建议类别：{{typeName}}</span>
+      <span class="title title2">建议类别：{{typeName}}</span>
     </div>
     <div v-show="!showLoding">
       <img id="img" :src="imgSrc" v-show="!showLoding"></img>
@@ -190,7 +190,6 @@ export default {
   position: relative;
   margin-top: 3rem;
   font-size: 16px;
-  /*border: 1px solid #eee;*/
 }
 
 .return_btn {
@@ -200,25 +199,27 @@ export default {
 
 .top {
   background-color: #fff;
-  height: 0.8rem;
-  text-align: left;
-  position: relative;
+  height: 0.9rem;
   border-bottom: 0.02rem solid #999;
 }
-
+i.ivu-icon.ivu-icon-ios-undo-outline {
+    position: absolute;
+    left: 0;
+    top: 0.1rem;
+}
 .top i {
   font-size: 0.8rem;
   color: #777;
   margin-left: 0.2rem;
   text-align: left;
 }
+span.title.title2 {
+    padding-top: 0.15rem;
+}
 
 .title {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 0.35rem;
-  color: #000;
+    font-size: 0.35rem;
+    color: #000;
+    line-height: 0.8rem;
 }
 </style>
